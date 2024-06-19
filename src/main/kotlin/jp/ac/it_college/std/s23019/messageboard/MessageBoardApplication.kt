@@ -1,4 +1,4 @@
-package jp.ac.it_college.std.s23019.book.manager.messageboard
+package jp.ac.it_college.std.s23019.messageboard
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
