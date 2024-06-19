@@ -1,0 +1,12 @@
+package jp.ac.it_college.std.s23019.messageboard.domain.model
+
+import kotlinx.datetime.LocalDateTime
+
+data class Threads(
+    val id: Long,
+    val title: String,
+    val userId: Long,
+    val createdAT: LocalDateTime,
+    val updatedAt: LocalDateTime,
+    val deleted: Boolean
+)
