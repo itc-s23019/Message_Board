@@ -23,4 +23,43 @@ class UserRepositoryImpl : UserRepository {
             UsersEntity.findById(id)?.toUser()
         }
     }
+
+    override fun createUser(user: Users): Users {
+        return transaction {
+            UsersEntity.new {
+                this.email = user.email
+                this.password = user.password
+                this.viewName = user.viewName
+            }.toUser()
+        }
+    }
+
+    override fun updateUser(user: Users): Users {
+        return transaction {
+            val usersEntity = UsersEntity.findById(user.id)
+                ?: throw IllegalArgumentException("User not found with id:${user.id}")
+            usersEntity.apply {
+                email = user.email
+                password = user.password
+                viewName = user.viewName
+            }
+            usersEntity.toUser()
+        }
+    }
+
+    override fun deleteUser(id: Long) {
+        transaction {
+            val userEntity = UsersEntity.findById(id)
+                ?: throw IllegalArgumentException("User not found with id: ${id}")
+            userEntity.delete()
+        }
+    }
+
+    override fun save(user: Users): Users {
+        return if (user.id == 0L) {
+            createUser(user)
+        } else {
+            updateUser(user)
+        }
+    }
 }
