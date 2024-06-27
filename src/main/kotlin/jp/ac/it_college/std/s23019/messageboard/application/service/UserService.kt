@@ -44,6 +44,7 @@ class UserService(
 
     @Transactional
     fun find(id: Long): Users {
-        return usersRepository.findById(id) ?: throw Exception("User not found")
+        return usersRepository.findById(id)
+            ?: throw Exception("User not found")
     }
 }

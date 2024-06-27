@@ -28,4 +28,8 @@ class UserController(
             GetUserInfoResponse(id, viewName)
         }
     }
+    @DeleteMapping("/delete/{users_id}")
+    fun userDelete(@PathVariable users_id: Long) {
+        userService.delete(users_id)
+    }
 }
