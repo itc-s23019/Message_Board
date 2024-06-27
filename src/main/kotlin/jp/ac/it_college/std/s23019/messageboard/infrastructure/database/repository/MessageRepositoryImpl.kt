@@ -9,9 +9,8 @@ import jp.ac.it_college.std.s23019.messageboard.infrastructure.database.dao.User
 import org.jetbrains.exposed.sql.transactions.transaction
 import org.springframework.stereotype.Repository
 
-
 @Repository
-class MessageRepositoryImpl : MessageRepository{
+class MessageRepositoryImpl : MessageRepository {
     override fun createMessage(message: Messages): Messages {
         return transaction {
             val newMessage = MessageEntity.new {
@@ -26,6 +25,12 @@ class MessageRepositoryImpl : MessageRepository{
         }
     }
 
+    override fun getAllMessages(): List<Messages> {
+        return transaction {
+            MessageEntity.all().map { it.toMessage() }
+        }
+    }
+
     override fun getMessageId(id: Long): Messages? {
         return transaction {
             val messageEntity = MessageEntity.findById(id)
@@ -35,7 +40,7 @@ class MessageRepositoryImpl : MessageRepository{
 
     override fun getMessageByThreadId(threadId: Long): List<Messages> {
         return transaction {
-            MessageEntity.find{
+            MessageEntity.find {
                 MessageTable.threadId eq threadId
             }.map { it.toMessage() }
         }
@@ -63,5 +68,4 @@ class MessageRepositoryImpl : MessageRepository{
             MessageEntity.findById(id)?.delete()
         }
     }
-
 }

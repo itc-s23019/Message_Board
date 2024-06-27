@@ -12,4 +12,8 @@ class MessageService(
     fun createMessage(message: Messages): Messages {
         return messageRepository.createMessage(message)
     }
+    fun getAllMessages(): List<Messages> {
+        return messageRepository.getAllMessages()
+    }
+
 }
